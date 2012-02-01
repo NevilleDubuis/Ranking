@@ -8,6 +8,7 @@
     reset($tab);
     $count_tab = count($tab_centre);
     reset($tab_centre);
+	$shooter_in = array();
     $ind = 1;
 
     //tri pour classement alterné
@@ -62,7 +63,7 @@
                         }
                         echo '</div></div><br />';
                     }
-                    $shooter_in[$ind]=key($centre);
+                    $shooter_in[$ind]=key($tab_centre);
                     $count_tab--;
                     $search = false;
                }

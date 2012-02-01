@@ -1,5 +1,11 @@
 <?php 
-  if ($_POST['pdf']==null) {
+  if (isset($_POST['pdf'])) {
+	$pdf = $_POST['pdf']; 
+  } 
+  else {
+	$pdf = null;
+  }
+  if ($pdf == null) {
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//fr" 
   "http://www.w3.org/TR/html4/loose.dtd">
@@ -22,12 +28,10 @@
 	$name = str_replace(" ","_",$data['name']);
 	$number = $data['number_shoot'];
 	mysql_close ($base);
-    if ($_POST['pdf']==null) {
+    if ($pdf == null) {
 ?>
 <body>
-<?php
-  
-?>
+
     <h1>Classement :</h1>
     <fieldset>
 	<form method="post" action="<?php echo 'classement.php?id='.$id;?>" id="formulaire">
@@ -59,21 +63,21 @@
 </fieldset>
 <?php
       }
-	if ($_POST['pdf']!=null) {
+	if ($pdf != null) {
 		ob_start();
 		if (isset($_POST['bshoots'])) {
 			include 'class/bshoots_pdf.php';
 		}
-                if (isset($_POST['sbshoots'])) {
+        if (isset($_POST['sbshoots'])) {
 			include 'class/sbshoots.php';
 		}
-                if (isset($_POST['progres_add'])) {
+        if (isset($_POST['progres_add'])) {
 			include 'class/progres.php';
 		}
-                if (isset($_POST['progres_centre'])) {
+        if (isset($_POST['progres_centre'])) {
 			include 'class/progres_centre.php';
 		}
-                if (isset($_POST['progres_alt'])) {
+        if (isset($_POST['progres_alt'])) {
 			include 'class/progres_alt.php';
 		}
 		$content = ob_get_clean();
@@ -91,22 +95,22 @@
 	}
 	else {
 		if (isset($_POST['bshoots'])) {
-			  include 'class/bshoots_pdf.php';
+			include 'class/bshoots_pdf.php';
 		}
-                if (isset($_POST['sbshoots'])) {
+        if (isset($_POST['sbshoots'])) {
 			include 'class/sbshoots.php';
 		}
-                if (isset($_POST['progres_add'])) {
+        if (isset($_POST['progres_add'])) {
 			include 'class/progres.php';
 		}
-                if (isset($_POST['progres_centre'])) {
+        if (isset($_POST['progres_centre'])) {
 			include 'class/progres_centre.php';
 		}
-                if (isset($_POST['progres_alt'])) {
+        if (isset($_POST['progres_alt'])) {
 			include 'class/progres_alt.php';
 		}
 	}
-	if ($_POST['pdf']!=null) {
+	if ($pdf == null) {
 ?>
 </body>
 </html>

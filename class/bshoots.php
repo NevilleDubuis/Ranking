@@ -1,65 +1,105 @@
 <?php
-echo '<fieldset class="titre"><legend>'.$name.'</legend>';
-		include 'includes/conx_bd.php';
-		//création de la requête sql
-		$sql = 'SELECT '.$name.'.*, person.* FROM '.$name.' INNER JOIN person 
-				ON '.$name.'.id_shooter = person.id ORDER BY ';
-		for ($i = 1; $i<=$number; $i++) {
-			$sql .= 'shoot'.$i;
-			if ($i<$number){
-				$sql .= ' + ';
-			}		
-		}
-		$sql .= ' DESC';
-		
-		$req = mysql_query($sql) or die ("Requête invalide");
-		$ind=1;
-		$tab[0]=0;
-		//affichage des données
-		while ($data = mysql_fetch_array($req)) { 
-			$inlist = false;
-			foreach ($tab as $shooter) {
-				if ($shooter == $data['id_shooter']) {
-					$inlist = true;
-				}
-			}
-			if (!($inlist)) {
-				echo '<div class="contenu"><div class="droite">'.$ind.'. '.$data['last_name'].'  &nbsp; &nbsp;'.$data['first_name'].'  &nbsp; &nbsp;';
-				if ($data['birthdate']!='0000-00-00') { 
-					echo date("d.m.Y", strtotime($data['birthdate']));
-				}
-				$total = 0;
-				echo '</div><table><tr>';
-				for ($i=1;$i<=$number;$i++) {
-						echo '<td>';
-						echo 'tir '.$i;
-						echo '</td>';
-						
-				}
-				
-				echo '<td>Total</td></tr><tr>';
-				for ($i=1;$i<=10;$i++) {
-					$name = 'shoot'.$i;
-					if (isset($data[$name])) {
-						echo '<td>';
-						echo $data[$name].' ';
-						echo '</td>';
-						$total += $data[$name];
-					}
-				}
-				echo '<td><strong>';
-				echo $total;
-				echo '</strong></td></tr></table></div>';
-				echo '<br/>';
-			
-				$tab[$ind]=$data['id_shooter'];
-				$ind++;
-			}
-		}
-		//si aucune passe
-		if (mysql_num_rows($req) == 0) {
-			echo '<p>aucun tir enregistré</p>';
-		}
-		echo '</fieldset>';
-		mysql_close ($base);
+echo '<page><h2>'.str_replace('_',' ',$name).'</h2>';
+echo '<div class="soustitre">Classement par meilleure passe :</div>';
+echo '<fieldset class="titre">';
+include 'includes/conx_bd.php';
+//crï¿½ation de la requï¿½te sql
+
+$sql = 'SELECT id FROM person';
+$id_person = mysql_query($sql);
+$n_shooter = mysql_num_rows($id_person);
+
+
+//initialisation des variables
+for ($i=0;$i<11;$i++) {
+    $tab_base[$i]=0;
+}
+krsort($tab_base);
+
+//enregistrement des passes, du total, et des appuis de chaque tireur
+while ($data = mysql_fetch_array($id_person)) {
+    $person = $data['id'];
+    $tab[$person] = 0;
+    $sql = 'SELECT ';
+
+    for ($i = 1; $i<=$number; $i++) {
+        $sql .= 'shoot'.$i;
+        $sql .= ',  ';
+    }
+
+    for ($i = 1; $i<=$number; $i++) {
+            $sql .= 'shoot'.$i;
+            if ($i<$number){
+                    $sql .= ' + ';
+            }
+    }
+
+    $sql .= ' AS total FROM '.$name.' WHERE id_shooter = '.$person.' ORDER BY total DESC  LIMIT 0 , 1';
+    $res = mysql_query($sql) or die ("Requï¿½te invalide");
+
+    if (mysql_num_rows($res)!= 0) {
+        $total = 0;
+        $appui = $tab_base;
+        $n = 0;
+
+        while ($passe = mysql_fetch_array($res)) {
+            for ($j=1; $j<=$number; $j++) {
+                $sh = 'shoot'.$j;
+                $best[$n] = $passe[$sh];
+                $total += $passe[$sh];
+                $n++;
+            }
+        }
+        //enregistrement de la passe, du total et de l'appui
+        rsort($best);
+        $tab_chal_total[$person] = $total;
+        $tab_chal[$person] = $best;
+    }
+}
+
+arsort($tab_chal);
+$egalite = 0;
+$ind = 1;
+foreach ($tab_chal as $key => $passe) {
+    $sql = 'SELECT * FROM person WHERE id='.$key;
+    $res = mysql_query($sql);
+    while ($data=mysql_fetch_array($res)) {
+        $old_total = $total;
+        $old_appui = $appui;
+        $total = $tab_chal_total[$key];
+        $appui = $passe[0];
+        
+        if ($total == $old_total) {
+            if ($appui == $old_appui) {
+                $egalite = 1;
+            }
+            else { $egalite = 0; }
+        }
+        else { $egalite = 0; }
+
+        $class = $ind - $egalite;
+        echo '<div class="contenu"><div class="droite">'.$class.'. '.$data['last_name'].'  &nbsp; &nbsp;'.$data['first_name'].'  &nbsp; &nbsp;';
+        if ($data['birthdate']!='0000-00-00') {
+            echo date("d.m.Y", strtotime($data['birthdate']));
+        }
+        echo '</div>';
+    }
+    echo '<div class="tir">';
+    foreach ($passe as $tir) {
+        if ($tir < 10) {
+            echo '&nbsp;';
+        }
+        echo '&nbsp;&nbsp;'.$tir;
+    }
+    echo '&nbsp;&nbsp;&nbsp;<strong>Total :</strong>'.$tab_chal_total[$key];
+    echo '&nbsp;&nbsp;&nbsp;<strong>Appui :</strong>'.$appui;
+    echo '</div></div><br />';
+    $ind++;
+}
+echo '</fieldset></page>';
+mysql_close ($base);
+
+
+
+
 ?>

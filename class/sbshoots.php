@@ -42,7 +42,7 @@ while ($data = mysql_fetch_array($id_person)) {
         $n = 0;
 
         while ($passe = mysql_fetch_array($res)) {
-            for ($j=0; $j<=$number; $j++) {
+            for ($j=1; $j<=$number; $j++) {
                 $sh = 'shoot'.$j;
                 $best[$n] = $passe[$sh];
                 $total += $passe[$sh];

@@ -3,7 +3,7 @@ echo '<page><h2>'.str_replace('_',' ',$name).'</h2>';
 echo '<div class="soustitre">Classement par meilleure passe :</div>';
 echo '<fieldset class="titre">';
 include 'includes/conx_bd.php';
-//cr�ation de la requ�te sql
+//cr.ation de la requ.te sql
 
 $sql = 'SELECT id FROM person';
 $id_person = mysql_query($sql);
@@ -35,7 +35,7 @@ while ($data = mysql_fetch_array($id_person)) {
     }
 
     $sql .= ' AS total FROM '.$name.' WHERE id_shooter = '.$person.' ORDER BY total DESC  LIMIT 0 , 1';
-    $res = mysql_query($sql) or die ("Requ�te invalide");
+    $res = mysql_query($sql) or die ("Requ.te invalide");
 
     if (mysql_num_rows($res)!= 0) {
         $total = 0;
@@ -43,7 +43,7 @@ while ($data = mysql_fetch_array($id_person)) {
         $n = 0;
 
         while ($passe = mysql_fetch_array($res)) {
-            for ($j=1; $j<=$number; $j++) {
+            for ($j=0; $j<=$number; $j++) {
                 $sh = 'shoot'.$j;
                 $best[$n] = $passe[$sh];
                 $total += $passe[$sh];
@@ -57,18 +57,18 @@ while ($data = mysql_fetch_array($id_person)) {
     }
 }
 
-arsort($tab_chal);
+arsort($tab_chal_total);
 $egalite = 0;
 $ind = 1;
-foreach ($tab_chal as $key => $passe) {
+foreach ($tab_chal_total as $key => $passe) {
     $sql = 'SELECT * FROM person WHERE id='.$key;
     $res = mysql_query($sql);
     while ($data=mysql_fetch_array($res)) {
         $old_total = $total;
         $old_appui = $appui;
         $total = $tab_chal_total[$key];
-        $appui = $passe[0];
-        
+        $appui = $tab_chal[$key][0];
+
         if ($total == $old_total) {
             if ($appui == $old_appui) {
                 $egalite = 1;
@@ -85,21 +85,18 @@ foreach ($tab_chal as $key => $passe) {
         echo '</div>';
     }
     echo '<div class="tir">';
-    foreach ($passe as $tir) {
+    echo '&nbsp;&nbsp;&nbsp;<strong>Total :</strong>'.$tab_chal_total[$key];
+    echo '&nbsp;&nbsp;&nbsp;<strong>Appui :</strong>'.$appui.' => ';
+    foreach ($tab_chal[$key] as $tir) {
         if ($tir < 10) {
             echo '&nbsp;';
         }
         echo '&nbsp;&nbsp;'.$tir;
     }
-    echo '&nbsp;&nbsp;&nbsp;<strong>Total :</strong>'.$tab_chal_total[$key];
-    echo '&nbsp;&nbsp;&nbsp;<strong>Appui :</strong>'.$appui;
     echo '</div></div><br />';
     $ind++;
 }
 echo '</fieldset></page>';
 mysql_close ($base);
-
-
-
 
 ?>

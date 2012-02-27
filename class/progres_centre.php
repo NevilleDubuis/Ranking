@@ -4,13 +4,13 @@ echo '<div class="soustitre">Coup centr&eacute; :</div>';
 echo '<fieldset class="titre">';
 include 'includes/conx_bd.php';
 //cr�ation de la requ�te sql
-        
+
 $sql = 'SELECT id FROM person';
 $id_person = mysql_query($sql) or die('requete invalide');
 $n_shooter = mysql_num_rows($id_person);
 
 //enregistrement du total de chaque tireur
-while ($data = mysql_fetch_array($id_person)) { 
+while ($data = mysql_fetch_array($id_person)) {
     $person = $data['id'];
     $tab[$person] = 0;
     $sql = 'SELECT ';

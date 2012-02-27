@@ -53,20 +53,19 @@ input.shoot {
 #day {
 	display: block;
 	float: left;
-	margin-left: -240px;
+	margin-left: 0px;
 	
 }
 
 #month {
 	display: block;
-	margin-left: -160px;
+	margin-left: 50px;
 	float: left;
-
 }
 
 #year {
 	display: block;
-	margin-left: -80px;
+	margin-left: 50px;
 	float: left;
   
 }

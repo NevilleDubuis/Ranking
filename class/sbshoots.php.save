@@ -52,7 +52,6 @@ while ($data = mysql_fetch_array($id_person)) {
         //enregistrement de la passe, du total et de l'appui
         rsort($best);
         $tab_chal_total[$person] = $total;
-        $best[0] = $total;
         $tab_chal[$person] = $best;
     }
 }
@@ -71,16 +70,13 @@ foreach ($tab_chal as $key => $passe) {
         echo '</div>';
     }
     echo '<div class="tir">';
-
-    echo '&nbsp;&nbsp;&nbsp;<strong>Total :</strong>'.$tab_chal_total[$key];
-    echo '&nbsp;&nbsp;&nbsp;<strong>Appui :</strong>';
-
-    for ($i=1; $i<$number; $i++){
-        if ($passe[$i] < 10) {
+    foreach ($passe as $tir) {
+        if ($tir < 10) {
             echo '&nbsp;';
         }
-        echo '&nbsp;&nbsp;'.$passe[$i];
+        echo '&nbsp;&nbsp;'.$tir;
     }
+    echo '&nbsp;&nbsp;&nbsp;<strong>Total :</strong>'.$tab_chal_total[$key];
     echo '</div></div><br />';
 }
 echo '</fieldset></page>';
@@ -172,4 +168,5 @@ if (mysql_num_rows($req) == 0) {
 echo '</fieldset></page>';
 mysql_close ($base);
 */
-?>
+ ?>
+ *

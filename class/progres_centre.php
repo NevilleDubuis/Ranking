@@ -37,27 +37,28 @@ while ($data = mysql_fetch_array($id_person)) {
         if (!(isset($temp_centre[0]))) {
             rsort($temp_centre);
 
-            for ($i=0; $i<=4; $i++)  {
-                $centre[$i]=$temp_centre[$i];
+            $tot = 0;
+            for ($i=0; $i<=9; $i++)  {
+                $centre[$i] = $temp_centre[$i];
+                $tot += $temp_centre[$i]
             }
             $tab_centre[$person] = $centre;
+            $tab_total[$person] = $tot;
+
         }
     }
 }
 $ind=1;
 
 
-foreach ($tab_centre as $passe) {
-    $tot = $passe[0] + $passe[1] + $passe[2];
-    array_unshift($centre, $tot);
-}
-
+arsort($tab_total);
 arsort($tab_centre);
-$centre = $tab_centre;
-reset($centre);
-foreach ($tab_centre as $passe) {
-    $sql = 'SELECT * FROM person WHERE id='.key($centre);
-    next($centre);
+$tot = $tab_total;
+reset($tot);
+foreach ($tab_total as $passe) {
+    $current_shooter_id = key($tot);
+    $sql = 'SELECT * FROM person WHERE id='.$current_shooter_id;
+    next($tot);
     $res = mysql_query($sql);
     while ($data=mysql_fetch_array($res)) {
         echo '<div class="contenu"><div class="droite">'.$ind++.'. '.$data['last_name'].'  &nbsp; &nbsp;'.$data['first_name'].'  &nbsp; &nbsp;';
@@ -69,8 +70,7 @@ foreach ($tab_centre as $passe) {
     echo '<div class="tir">';
     $n = 0;
     $total = 0;
-    array_shift($passe);
-    foreach ($passe as $tir) {
+    foreach ($tab_centre[$current_shooter_id] as $tir) {
         $total += $tir;
         $str = sprintf("%05s", $tir);
         echo str_replace('0', '&nbsp;', substr($str, 0, 3));

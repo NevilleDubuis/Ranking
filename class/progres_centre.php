@@ -43,7 +43,7 @@ while ($data = mysql_fetch_array($id_person)) {
                 $total += $temp_centre[$i];
             }
             $tab_centre[$person] = $centre;
-            $tab_total[$person] = $total;
+            $tab_total[$person] = array(($centre[0] + $centre[1] + $centre[2]), $total);
 
         }
     }

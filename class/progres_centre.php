@@ -62,11 +62,13 @@ foreach ($tab_centre as $passe) {
     }
     echo '<div class="tir">';
     $n = 0;
+    $total = 0;
     foreach ($passe as $tir) {
+        $total += $tir;
         $str = sprintf("%05s", $tir);
         echo str_replace('0', '&nbsp;', substr($str, 0, 3));
         echo substr($str, 3, 2);
-        if ($n==2) {echo '&nbsp;&nbsp;&nbsp;<strong>Appui :</strong>';}
+        if ($n==2) {echo '&nbsp;&nbsp;&nbsp;<strong>Total :</strong>'.$total.'&nbsp;&nbsp;&nbsp;<strong>Appui :</strong>';}
         $n++;
     }
     echo '</div></div><br />';

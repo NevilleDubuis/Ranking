@@ -37,15 +37,21 @@ while ($data = mysql_fetch_array($id_person)) {
         if (!(isset($temp_centre[0]))) {
             rsort($temp_centre);
 
-            for ($i=0; $i<=4; $i++)  {
+            $tot = 0;
+            for ($i=0; $i<=8; $i++)  {
+                if ($i <= 2 ) {
+                    $tot += $temp_centre[$i];
+                }
                 $centre[$i]=$temp_centre[$i];
             }
+            array_unshift($centre, $tot);
             $tab_centre[$person] = $centre;
 
         }
     }
 }
 $ind=1;
+
 arsort($tab_centre);
 $centre = $tab_centre;
 reset($centre);

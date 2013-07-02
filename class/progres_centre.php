@@ -38,7 +38,7 @@ while ($data = mysql_fetch_array($id_person)) {
             rsort($temp_centre);
 
             $tot = 0;
-            for ($i=0; $i<=8; $i++)  {
+            for ($i=0; $i<=4; $i++)  {
                 if ($i <= 2 ) {
                     $tot += $temp_centre[$i];
                 }
@@ -69,6 +69,7 @@ foreach ($tab_centre as $passe) {
     echo '<div class="tir">';
     $n = 0;
     $total = 0;
+    array_shift($passe);
     foreach ($passe as $tir) {
         $total += $tir;
         $str = sprintf("%05s", $tir);

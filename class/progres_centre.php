@@ -37,13 +37,13 @@ while ($data = mysql_fetch_array($id_person)) {
         if (!(isset($temp_centre[0]))) {
             rsort($temp_centre);
 
-            $tot = 0;
+            $total = 0;
             for ($i=0; $i<=9; $i++)  {
                 $centre[$i] = $temp_centre[$i];
-                $tot += $temp_centre[$i]
+                $total += $temp_centre[$i];
             }
             $tab_centre[$person] = $centre;
-            $tab_total[$person] = $tot;
+            $tab_total[$person] = $total;
 
         }
     }

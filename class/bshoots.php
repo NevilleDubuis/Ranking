@@ -1,7 +1,6 @@
 <?php
 echo '<page><h2>'.str_replace('_',' ',$name).'</h2>';
 echo '<div class="soustitre">Classement par meilleure passe :</div>';
-echo '<fieldset class="titre">';
 include 'includes/conx_bd.php';
 //cr.ation de la requ.te sql
 
@@ -96,7 +95,7 @@ foreach ($tab_chal_total as $key => $passe) {
     echo '</div></div><br />';
     $ind++;
 }
-echo '</fieldset></page>';
+echo '</page>';
 mysql_close ($base);
 
 ?>

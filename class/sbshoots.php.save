@@ -1,7 +1,6 @@
 <?php
 echo '<page><h2>'.str_replace('_',' ',$name).'</h2>';
 echo '<div class="soustitre">Classement par meilleure passe :</div>';
-echo '<fieldset class="titre">';
 include 'includes/conx_bd.php';
 
 $sql = 'SELECT id FROM person';
@@ -79,7 +78,7 @@ foreach ($tab_chal as $key => $passe) {
     echo '&nbsp;&nbsp;&nbsp;<strong>Total :</strong>'.$tab_chal_total[$key];
     echo '</div></div><br />';
 }
-echo '</fieldset></page>';
+echo '</page>';
 mysql_close ($base);
 
 
@@ -92,7 +91,7 @@ mysql_close ($base);
 
 
 //cr�ation de la requ�te sql
-$sql = 'SELECT '.$name.'.*, person.* FROM '.$name.' INNER JOIN person 
+$sql = 'SELECT '.$name.'.*, person.* FROM '.$name.' INNER JOIN person
                 ON '.$name.'.id_shooter = person.id ORDER BY ';
 for ($i = 1; $i<=$number; $i++) {
         $sql .= 'shoot'.$i;
@@ -111,7 +110,7 @@ for ($i=0;$i<11;$i++) {
 }
 krso
 //affichage des donn�es
-while ($data = mysql_fetch_array($req)) { 
+while ($data = mysql_fetch_array($req)) {
     $inlist = false;
     foreach ($tab as $shooter) {
         if ($shooter == $data['id_shooter']) {
@@ -128,7 +127,7 @@ while ($data = mysql_fetch_array($req)) {
             $total += $data[$sh];
             $appui[$data[$sh]] += 1;
         }
-        
+
         $egalite = 0;
         if ($total == $old_total) {
             if ($appui == $old_appui) {

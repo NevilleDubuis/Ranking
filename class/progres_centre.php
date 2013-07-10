@@ -1,7 +1,6 @@
 <?php
 echo '<page><h2>'.str_replace('_',' ',$name).'</h2>';
 echo '<div class="soustitre">Coup centr&eacute; :</div>';
-echo '<fieldset class="titre">';
 include 'includes/conx_bd.php';
 //cr�ation de la requ�te sql
 
@@ -80,7 +79,7 @@ foreach ($tab_total as $passe) {
     }
     echo '</div></div><br />';
 }
-echo '</fieldset></page>';
+echo '</page>';
 
 mysql_close ($base);
 ?>

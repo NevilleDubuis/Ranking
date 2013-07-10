@@ -22,15 +22,15 @@ a {
 a:link {
 	color: blue;
 	}
-	
+
 a:visited {
 	color: blue;
 	}
-	
+
 a:hover {
 	color: purple;
-	}  
-	
+	}
+
 a:active {
 	color: purple;
 	}
@@ -40,16 +40,10 @@ ul li {
 	list-style-type: none;
 	background-repeat: no-repeat;
 	background-position: 0% 100%;
-	padding-left: 20px;	
+	padding-left: 20px;
 	vertical-align: middle;
 }
 
-fieldset {
-	border: 2px solid;
-	width: 1024px;
-	margin: auto;
-        margin-bottom: 20px;
-}
 
 legend{
 	margin: 10px;

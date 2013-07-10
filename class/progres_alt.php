@@ -1,7 +1,6 @@
 <?php
     echo '<page><h2>'.str_replace('_',' ',$name).'</h2>';
     echo '<div class="soustitre">Classement altern&eacute; :</div>';
-    echo '<fieldset class="titre">';
     include 'includes/conx_bd.php';
 
     //varaibles necessaire a la recherche
@@ -40,7 +39,7 @@
             }
             next($tab);
         }
-      
+
         //classement au coup centré, si il y a encore des personnes a afficher.
         if ($count_tab!=0){
             $search = true;
@@ -75,6 +74,6 @@
         }
 
     }
-    echo '</fieldset></page>';
+    echo '</page>';
     mysql_close ($base);
 ?>

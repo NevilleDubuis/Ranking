@@ -81,5 +81,7 @@ foreach ($tab_total as $passe) {
 }
 echo '</page>';
 
+$tab_centre = $tab_total;
+
 mysql_close ($base);
 ?>

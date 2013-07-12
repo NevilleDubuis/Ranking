@@ -59,6 +59,8 @@ while ($data = mysql_fetch_array($id_person)) {
                 $total += $passe['total'];
             }
         $tab[$person] += $total;
+    } else {
+        $tab[$person] += 0;
     }
 }
 
@@ -138,14 +140,17 @@ for ($i=0; $i<=$n_shooter; $i++) {
         //affichage des 3 passe concernée
         while ($data = mysql_fetch_array($res)) {
             echo '&nbsp;&nbsp;&nbsp;<strong>Total société:</strong>';
+            $total_passe = 0;
             for ($j=0; $j<=5; $j++) {
                 $sh = 'shoot'.$j;
+
                 if (isset($data[$sh])) {
-                    $str = sprintf("%05s", $data[$sh]);
-                    echo str_replace('0', '&nbsp;', substr($str, 0, 3));
-                    echo substr($str, 3, 2);
+                        $total_passe += $data[$sh];
                 }
             }
+            $str = sprintf("%05s", $total_passe);
+            echo str_replace('0', '&nbsp;', substr($str, 0, 3));
+            echo substr($str, 3, 2);
             $n_passe++;
         }
 

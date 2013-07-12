@@ -27,7 +27,7 @@ while ($data = mysql_fetch_array($id_person)) {
     }
 
     $sql .= ' AS total FROM '.$name.' WHERE id_shooter = '.$person.' ORDER BY total DESC  LIMIT 0 , 3';
-    $res = mysql_query($sql) or die ("Requ�te invalide");
+    $res = mysql_query($sql) or die ("Requete invalide");
     if (mysql_num_rows($res) != 0) {
         $total=0;
             while ($passe = mysql_fetch_array($res)) {
@@ -57,7 +57,7 @@ while ($data = mysql_fetch_array($id_person)) {
             }
     }
 
-    $sql .= ' AS total FROM `Société 2013` WHERE id_shooter = '.$person.' ORDER BY total DESC  LIMIT 0 , 1';
+    $sql .= ' AS total FROM Société_2013 WHERE id_shooter = '.$person.' ORDER BY total DESC  LIMIT 0 , 1';
     $res = mysql_query($sql) or die ("Requéte invalide");
     if (mysql_num_rows($res) != 0) {
         $total=0;
@@ -136,7 +136,7 @@ for ($i=0; $i<=$n_shooter; $i++) {
                 }
         }
 
-        $sql .= ' AS total FROM `Société 2013` WHERE id_shooter = '.key($tab).' ORDER BY total DESC  LIMIT 0 , 1';
+        $sql .= ' AS total FROM Société_2013 WHERE id_shooter = '.key($tab).' ORDER BY total DESC  LIMIT 0 , 1';
         $res = mysql_query($sql) or die('raté');
         $n_passe = 1;
         echo '<div class="tir">';

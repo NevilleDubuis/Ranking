@@ -135,10 +135,9 @@ for ($i=0; $i<=$n_shooter; $i++) {
         $sql .= ' AS total FROM Societe_2013 WHERE id_shooter = '.key($tab).' ORDER BY total DESC  LIMIT 0 , 1';
         $res = mysql_query($sql) or die('requete invalide');
         $n_passe = 1;
-        echo '<div class="tir">';
         //affichage des 3 passe concernée
         while ($data = mysql_fetch_array($res)) {
-            echo '&nbsp;&nbsp;&nbsp;<strong>société:</strong>';
+            echo '&nbsp;&nbsp;&nbsp;<strong>Total société:</strong>';
             for ($j=0; $j<=5; $j++) {
                 $sh = 'shoot'.$j;
                 if (isset($data[$sh])) {

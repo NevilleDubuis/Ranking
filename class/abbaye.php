@@ -103,15 +103,17 @@ for ($i=0; $i<=$n_shooter; $i++) {
         echo '<div class="tir">';
         //affichage des 3 passe concernée
         while ($data = mysql_fetch_array($res)) {
-            echo '&nbsp;&nbsp;&nbsp;<strong>passe '.$n_passe.' :</strong>';
+            echo '&nbsp;&nbsp;&nbsp;<strong>Total progres '.$n_passe.' :</strong>';
+            $total_passe = 0;
             for ($j=0; $j<=$number; $j++) {
                 $sh = 'shoot'.$j;
                 if (isset($data[$sh])) {
-                    $str = sprintf("%05s", $data[$sh]);
-                    echo str_replace('0', '&nbsp;', substr($str, 0, 3));
-                    echo substr($str, 3, 2);
+                    $total_passe += $data[$sh];
                 }
             }
+            $str = sprintf("%05s", $total_passe);
+            echo str_replace('0', '&nbsp;', substr($str, 0, 3));
+            echo substr($str, 3, 2);
             $n_passe++;
         }
 

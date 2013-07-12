@@ -35,14 +35,7 @@ while ($data = mysql_fetch_array($id_person)) {
             }
         $tab[$person] = $total;
     }
-}
 
-$id_person = mysql_query($sql);
-
-//enregistrement du total de chaque tireur
-while ($data = mysql_fetch_array($id_person)) {
-    $person = $data['id'];
-    $tab[$person] = 0;
     $sql = 'SELECT ';
 
     for ($i = 1; $i<=5; $i++) {

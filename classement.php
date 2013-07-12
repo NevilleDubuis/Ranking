@@ -71,16 +71,19 @@
 		if (isset($_POST['bshoots'])) {
 			include 'class/bshoots.php';
 		}
-        if (isset($_POST['sbshoots'])) {
+    if (isset($_POST['sbshoots'])) {
 			include 'class/sbshoots.php';
 		}
-        if (isset($_POST['progres_add'])) {
+    if (isset($_POST['abbaye'])) {
+      include 'class/abbaye.php';
+    }
+    if (isset($_POST['progres_add'])) {
 			include 'class/progres.php';
 		}
-        if (isset($_POST['progres_centre'])) {
+    if (isset($_POST['progres_centre'])) {
 			include 'class/progres_centre.php';
 		}
-        if (isset($_POST['progres_alt'])) {
+    if (isset($_POST['progres_alt'])) {
 			include 'class/progres_alt.php';
 		}
 		$content = ob_get_clean();
@@ -98,16 +101,19 @@
 		if (isset($_POST['bshoots'])) {
 			include 'class/bshoots.php';
 		}
-        if (isset($_POST['sbshoots'])) {
+    if (isset($_POST['sbshoots'])) {
 			include 'class/sbshoots.php';
 		}
-        if (isset($_POST['progres_add'])) {
+    if (isset($_POST['abbaye'])) {
+      include 'class/abbaye.php';
+    }
+    if (isset($_POST['progres_add'])) {
 			include 'class/progres.php';
 		}
-        if (isset($_POST['progres_centre'])) {
+    if (isset($_POST['progres_centre'])) {
 			include 'class/progres_centre.php';
 		}
-        if (isset($_POST['progres_alt'])) {
+    if (isset($_POST['progres_alt'])) {
 			include 'class/progres_alt.php';
 		}
 	}

@@ -1,13 +1,13 @@
-<?php 
+<?php
   if (isset($_POST['pdf'])) {
-	$pdf = $_POST['pdf']; 
-  } 
+	$pdf = $_POST['pdf'];
+  }
   else {
 	$pdf = null;
   }
   if ($pdf == null) {
 ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//fr" 
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//fr"
   "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="fr">
 
@@ -42,6 +42,9 @@
             <label for="sbshoots" class="normal">addition (appui au N&ordm; de 10,9,...)</label>
             <input type="checkbox" value="sbshoots" name="sbshoots" class='choose'<?php if (isset($_POST['sbshoots'])) {echo 'checked';}?>/> <div class="comm">pour le challenge standard et speedy </div><br/><br/>
 
+            <label for="abbaye" class="normal">addition (abbaye 2013)</label>
+            <input type="checkbox" value="abbaye" name="abbaye" class='choose'<?php if (isset($_POST['abbaye'])) {echo 'checked';}?>/><br/><br/>
+
             <label for="prgres_add" class="normal">addition (progr&egrave;s)</label>
             <input type="checkbox" value="progres_add" name="progres_add" class='choose'<?php if (isset($_POST['progres_add'])) {echo 'checked';}?>/><br/><br/>
 
@@ -59,7 +62,7 @@
             <input type="button" value="retour" onclick="window.location='index.php';"/>
 
 	</form>
-		
+
 </fieldset>
 <?php
       }

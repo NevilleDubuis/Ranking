@@ -37,7 +37,7 @@ while ($data = mysql_fetch_array($id_person)) {
     }
 }
 
-reset($id_person);
+$id_person = mysql_query($sql);
 
 //enregistrement du total de chaque tireur
 while ($data = mysql_fetch_array($id_person)) {
@@ -136,7 +136,7 @@ for ($i=0; $i<=$n_shooter; $i++) {
                 }
         }
 
-        $sql .= ' AS total FROM `Société_2013` WHERE id_shooter = '.key($tab).' ORDER BY total DESC  LIMIT 0 , 1';
+        $sql .= ' AS total FROM Société_2013 WHERE id_shooter = '.key($tab).' ORDER BY total DESC  LIMIT 0 , 1';
         $res = mysql_query($sql) or die('requete invalide');
         $n_passe = 1;
         echo '<div class="tir">';

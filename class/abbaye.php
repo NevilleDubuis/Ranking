@@ -60,7 +60,7 @@ while ($data = mysql_fetch_array($id_person)) {
             }
         $tab[$person] += $total;
     } else {
-        $tab[$person] += 0;
+        $tab[$person] = 0;
     }
 }
 

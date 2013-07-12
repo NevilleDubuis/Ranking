@@ -57,7 +57,7 @@ while ($data = mysql_fetch_array($id_person)) {
             }
     }
 
-    $sql .= ' AS total FROM Société 2013 WHERE id_shooter = '.$person.' ORDER BY total DESC  LIMIT 0 , 1';
+    $sql .= ' AS total FROM `Société 2013` WHERE id_shooter = '.$person.' ORDER BY total DESC  LIMIT 0 , 1';
     $res = mysql_query($sql) or die ("Requéte invalide");
     if (mysql_num_rows($res) != 0) {
         $total=0;
@@ -120,6 +120,40 @@ for ($i=0; $i<=$n_shooter; $i++) {
             }
             $n_passe++;
         }
+
+         //création de la requete sql pour selectionner les 3 meilleurs passe
+        $sql = 'SELECT ';
+
+        for ($j = 1; $j<=5; $j++) {
+            $sql .= 'shoot'.$j;
+            $sql .= ',  ';
+        }
+
+        for ($j = 1; $j<=5; $j++) {
+                $sql .= 'shoot'.$j;
+                if ($j<5){
+                        $sql .= ' + ';
+                }
+        }
+
+        $sql .= ' AS total FROM `Société 2013` WHERE id_shooter = '.key($tab).' ORDER BY total DESC  LIMIT 0 , 1';
+        $res = mysql_query($sql) or die('raté');
+        $n_passe = 1;
+        echo '<div class="tir">';
+        //affichage des 3 passe concernée
+        while ($data = mysql_fetch_array($res)) {
+            echo '&nbsp;&nbsp;&nbsp;<strong>société:</strong>';
+            for ($j=0; $j<=5; $j++) {
+                $sh = 'shoot'.$j;
+                if (isset($data[$sh])) {
+                    $str = sprintf("%05s", $data[$sh]);
+                    echo str_replace('0', '&nbsp;', substr($str, 0, 3));
+                    echo substr($str, 3, 2);
+                }
+            }
+            $n_passe++;
+        }
+
         echo '&nbsp;&nbsp;&nbsp;<strong>Total :'.pos($tab).'</strong>';
         echo '</div></div><br />';
         next($tab);

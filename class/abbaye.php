@@ -134,7 +134,7 @@ for ($i=0; $i<=$n_shooter; $i++) {
                 }
         }
 
-        $sql .= ' AS total FROM Societe_2013 WHERE id_shooter = '.key($tab).' ORDER BY total DESC  LIMIT 0 , 1';
+        $sql .= ' AS total FROM Societe_2016 WHERE id_shooter = '.key($tab).' ORDER BY total DESC  LIMIT 0 , 1';
         $res = mysql_query($sql) or die('requete invalide');
         $n_passe = 1;
         //affichage des 3 passe concernée

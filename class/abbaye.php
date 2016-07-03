@@ -50,7 +50,7 @@ while ($data = mysql_fetch_array($id_person)) {
             }
     }
 
-    $sql .= ' AS total FROM Societe_2013 WHERE id_shooter = '.$person.' ORDER BY total DESC  LIMIT 0 , 1';
+    $sql .= ' AS total FROM Societe_2016 WHERE id_shooter = '.$person.' ORDER BY total DESC  LIMIT 0 , 1';
 
     $res = mysql_query($sql) or die ("Requéte invalide");
     if (mysql_num_rows($res) != 0) {

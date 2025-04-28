@@ -5,11 +5,11 @@ include 'includes/conx_bd.php';
 //cr�ation de la requ�te sql
 
 $sql = 'SELECT id FROM person';
-$id_person = mysql_query($sql) or die('requete invalide');
-$n_shooter = mysql_num_rows($id_person);
+$id_person = mysqli_query($base, $sql) or die('requete invalide');
+$n_shooter = mysqli_num_rows($id_person);
 
 //enregistrement du total de chaque tireur
-while ($data = mysql_fetch_array($id_person)) {
+while ($data = mysqli_fetch_array($id_person)) {
     $person = $data['id'];
     $tab[$person] = 0;
     $sql = 'SELECT ';
@@ -22,11 +22,11 @@ while ($data = mysql_fetch_array($id_person)) {
     }
 
     $sql .= ' FROM '.$name.' WHERE id_shooter = '.$person;
-    $res = mysql_query($sql) or die ("Requete invalide");
+    $res = mysqli_query($base, $sql) or die ("Requete invalide");
     $temp_centre= null;
     $n=1;
-    if (mysql_num_rows($res)!=0) {
-        while ($passe = mysql_fetch_array($res)) {
+    if (mysqli_num_rows($res)!=0) {
+        while ($passe = mysqli_fetch_array($res)) {
             for ($j=1; $j<=$number; $j++) {
                 $sh = 'shoot'.$j;
                 $temp_centre[$n] = $passe[$sh];
@@ -58,8 +58,8 @@ foreach ($tab_total as $passe) {
     $current_shooter_id = key($tot);
     $sql = 'SELECT * FROM person WHERE id='.$current_shooter_id;
     next($tot);
-    $res = mysql_query($sql);
-    while ($data=mysql_fetch_array($res)) {
+    $res = mysqli_query($base, $sql);
+    while ($data=mysqli_fetch_array($res)) {
         echo '<div class="contenu"><div class="droite">'.$ind++.'. '.$data['last_name'].'  &nbsp; &nbsp;'.$data['first_name'].'  &nbsp; &nbsp;';
         if ($data['birthdate']!='0000-00-00') {
             echo date("d.m.Y", strtotime($data['birthdate']));
@@ -83,5 +83,5 @@ echo '</page>';
 
 $tab_centre = $tab_total;
 
-mysql_close ($base);
+mysqli_close ($base);
 ?>

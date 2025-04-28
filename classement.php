@@ -24,11 +24,11 @@
 	include 'includes/conx_bd.php';
 	$id = $_GET['id'];
 	$sql = 'SELECT name, number_shoot FROM events where id = '.$id;
-	$res = mysql_query($sql);
-	$data = mysql_fetch_array($res);
+	$res = mysqli_query($base, $sql);
+	$data = mysqli_fetch_array($res);
 	$name = str_replace(" ","_",$data['name']);
 	$number = $data['number_shoot'];
-	mysql_close ($base);
+	mysqli_close ($base);
     if ($pdf == null) {
 ?>
 <body>

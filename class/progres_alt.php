@@ -25,8 +25,8 @@
             //si elle n'y est pas on affiche le résultat et on sort
             if (!($inlist)) {
                 $sql = 'SELECT * FROM person WHERE id='.key($tab);
-                $res = mysql_query($sql);
-                while ($data=mysql_fetch_array($res)) {
+                $res = mysqli_query($base, $sql);
+                while ($data=mysqli_fetch_array($res)) {
                     echo '<div class="contenu"><div class="droite">'.$ind++.'. '.$data['last_name'].'  &nbsp; &nbsp;'.$data['first_name'].'  &nbsp; &nbsp;';
                     if ($data['birthdate']!='0000-00-00') {
                         echo date("d.m.Y", strtotime($data['birthdate']));
@@ -54,8 +54,8 @@
                 }
                 if (!($inlist)) {
                     $sql = 'SELECT * FROM person WHERE id='.key($tab_centre);
-                    $res = mysql_query($sql);
-                    while ($data=mysql_fetch_array($res)) {
+                    $res = mysqli_query($base, $sql);
+                    while ($data=mysqli_fetch_array($res)) {
                         echo '<div class="contenu"><div class="droite">'.$ind++.'. '.$data['last_name'].'  &nbsp; &nbsp;'.$data['first_name'].'  &nbsp; &nbsp;';
                         if ($data['birthdate']!='0000-00-00') {
                             echo date("d.m.Y", strtotime($data['birthdate']));
@@ -75,5 +75,5 @@
 
     }
     echo '</page>';
-    mysql_close ($base);
+    mysqli_close ($base);
 ?>

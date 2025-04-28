@@ -5,11 +5,11 @@ include 'includes/conx_bd.php';
 //création de la requête sql
 
 $sql = 'SELECT id FROM person';
-$id_person = mysql_query($sql);
-$n_shooter = mysql_num_rows($id_person);
+$id_person = mysqli_query($base, $sql);
+$n_shooter = mysqli_num_rows($id_person);
 
 //enregistrement du total de chaque tireur
-while ($data = mysql_fetch_array($id_person)) {
+while ($data = mysqli_fetch_array($id_person)) {
     $person = $data['id'];
     $tab[$person] = 0;
     $sql = 'SELECT ';
@@ -27,10 +27,10 @@ while ($data = mysql_fetch_array($id_person)) {
     }
 
     $sql .= ' AS total FROM '.$name.' WHERE id_shooter = '.$person.' ORDER BY total DESC  LIMIT 0 , 3';
-    $res = mysql_query($sql) or die ("Requete invalide");
-    if (mysql_num_rows($res) != 0) {
+    $res = mysqli_query($base, $sql) or die ("Requete invalide");
+    if (mysqli_num_rows($res) != 0) {
         $total=0;
-            while ($passe = mysql_fetch_array($res)) {
+            while ($passe = mysqli_fetch_array($res)) {
                 $total += $passe['total'];
             }
         $tab[$person] = $total;
@@ -52,10 +52,10 @@ while ($data = mysql_fetch_array($id_person)) {
 
     $sql .= ' AS total FROM Societe_2016 WHERE id_shooter = '.$person.' ORDER BY total DESC  LIMIT 0 , 1';
 
-    $res = mysql_query($sql) or die ("Requéte invalide");
-    if (mysql_num_rows($res) != 0) {
+    $res = mysqli_query($base, $sql) or die ("Requéte invalide");
+    if (mysqli_num_rows($res) != 0) {
         $total=0;
-            while ($passe = mysql_fetch_array($res)) {
+            while ($passe = mysqli_fetch_array($res)) {
                 $total += $passe['total'];
             }
         $tab[$person] += $total;
@@ -75,8 +75,8 @@ for ($i=0; $i<=$n_shooter; $i++) {
 
         //affichage du nom de la personne
         $sql = 'SELECT * FROM person WHERE id='.key($tab);
-        $res = mysql_query($sql);
-        while ($data=mysql_fetch_array($res)) {
+        $res = mysqli_query($base, $sql);
+        while ($data=mysqli_fetch_array($res)) {
             echo '<div class="contenu"><div class="droite">'.$ind++.'. '.$data['last_name'].'  &nbsp; &nbsp;'.$data['first_name'].'  &nbsp; &nbsp;';
             if ($data['birthdate']!='0000-00-00') {
                 echo date("d.m.Y", strtotime($data['birthdate']));
@@ -100,11 +100,11 @@ for ($i=0; $i<=$n_shooter; $i++) {
         }
 
         $sql .= ' AS total FROM '.$name.' WHERE id_shooter = '.key($tab).' ORDER BY total DESC  LIMIT 0 , 3';
-        $res = mysql_query($sql) or die('raté');
+        $res = mysqli_query($base, $sql) or die('raté');
         $n_passe = 1;
         echo '<div class="tir">';
         //affichage des 3 passe concernée
-        while ($data = mysql_fetch_array($res)) {
+        while ($data = mysqli_fetch_array($res)) {
             echo '&nbsp;&nbsp;&nbsp;<strong>Total progres '.$n_passe.' :</strong>';
             $total_passe = 0;
             for ($j=0; $j<=$number; $j++) {
@@ -135,10 +135,10 @@ for ($i=0; $i<=$n_shooter; $i++) {
         }
 
         $sql .= ' AS total FROM Societe_2016 WHERE id_shooter = '.key($tab).' ORDER BY total DESC  LIMIT 0 , 1';
-        $res = mysql_query($sql) or die('requete invalide');
+        $res = mysqli_query($base, $sql) or die('requete invalide');
         $n_passe = 1;
         //affichage des 3 passe concernée
-        while ($data = mysql_fetch_array($res)) {
+        while ($data = mysqli_fetch_array($res)) {
             echo '&nbsp;&nbsp;&nbsp;<strong>Total société:</strong>';
             $total_passe = 0;
             for ($j=0; $j<=5; $j++) {
@@ -161,6 +161,6 @@ for ($i=0; $i<=$n_shooter; $i++) {
     }
 }
 echo '</page>';
-mysql_close ($base);
+mysqli_close ($base);
 
 ?>

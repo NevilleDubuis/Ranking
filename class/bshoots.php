@@ -5,8 +5,8 @@ include 'includes/conx_bd.php';
 //cr.ation de la requ.te sql
 
 $sql = 'SELECT id FROM person';
-$id_person = mysql_query($sql);
-$n_shooter = mysql_num_rows($id_person);
+$id_person = mysqli_query($base, $sql);
+$n_shooter = mysqli_num_rows($id_person);
 
 
 //initialisation des variables
@@ -16,7 +16,7 @@ for ($i=0;$i<11;$i++) {
 krsort($tab_base);
 
 //enregistrement des passes, du total, et des appuis de chaque tireur
-while ($data = mysql_fetch_array($id_person)) {
+while ($data = mysqli_fetch_array($id_person)) {
     $person = $data['id'];
     $tab[$person] = 0;
     $sql = 'SELECT ';
@@ -34,14 +34,14 @@ while ($data = mysql_fetch_array($id_person)) {
     }
 
     $sql .= ' AS total FROM '.$name.' WHERE id_shooter = '.$person.' ORDER BY total DESC  LIMIT 0 , 1';
-    $res = mysql_query($sql) or die ("Requ.te invalide");
+    $res = mysqli_query($base, $sql) or die ("Requ.te invalide");
 
-    if (mysql_num_rows($res)!= 0) {
+    if (mysqli_num_rows($res)!= 0) {
         $total = 0;
         $appui = $tab_base;
         $n = 0;
 
-        while ($passe = mysql_fetch_array($res)) {
+        while ($passe = mysqli_fetch_array($res)) {
             for ($j=0; $j<=$number; $j++) {
                 $sh = 'shoot'.$j;
                 $best[$n] = $passe[$sh];
@@ -61,8 +61,8 @@ $egalite = 0;
 $ind = 1;
 foreach ($tab_chal_total as $key => $passe) {
     $sql = 'SELECT * FROM person WHERE id='.$key;
-    $res = mysql_query($sql);
-    while ($data=mysql_fetch_array($res)) {
+    $res = mysqli_query($base, $sql);
+    while ($data=mysqli_fetch_array($res)) {
         $old_total = $total;
         $old_appui = $appui;
         $total = $tab_chal_total[$key];
@@ -96,6 +96,6 @@ foreach ($tab_chal_total as $key => $passe) {
     $ind++;
 }
 echo '</page>';
-mysql_close ($base);
+mysqli_close ($base);
 
 ?>

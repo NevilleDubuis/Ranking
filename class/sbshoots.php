@@ -4,8 +4,8 @@ echo '<div class="soustitre">Classement par meilleure passe :</div>';
 include 'includes/conx_bd.php';
 
 $sql = 'SELECT id FROM person';
-$id_person = mysql_query($sql);
-$n_shooter = mysql_num_rows($id_person);
+$id_person = mysqli_query($base, $sql);
+$n_shooter = mysqli_num_rows($id_person);
 
 
 //initialisation des variables
@@ -15,7 +15,7 @@ for ($i=0;$i<11;$i++) {
 krsort($tab_base);
 
 //enregistrement des passes, du total, et des appuis de chaque tireur
-while ($data = mysql_fetch_array($id_person)) {
+while ($data = mysqli_fetch_array($id_person)) {
     $person = $data['id'];
     $tab[$person] = 0;
     $sql = 'SELECT ';
@@ -33,14 +33,14 @@ while ($data = mysql_fetch_array($id_person)) {
     }
 
     $sql .= ' AS total FROM '.$name.' WHERE id_shooter = '.$person.' ORDER BY total DESC  LIMIT 0 , 1';
-    $res = mysql_query($sql) or die ("Requ�te invalide");
+    $res = mysqli_query($base, $sql) or die ("Requ�te invalide");
 
-    if (mysql_num_rows($res)!= 0) {
+    if (mysqli_num_rows($res)!= 0) {
         $total = 0;
         $appui = $tab_base;
         $n = 0;
 
-        while ($passe = mysql_fetch_array($res)) {
+        while ($passe = mysqli_fetch_array($res)) {
             for ($j=1; $j<=$number; $j++) {
                 $sh = 'shoot'.$j;
                 $best[$n] = $passe[$sh];
@@ -61,8 +61,8 @@ arsort($tab_chal);
 $ind = 1;
 foreach ($tab_chal as $key => $passe) {
     $sql = 'SELECT * FROM person WHERE id='.$key;
-    $res = mysql_query($sql);
-    while ($data=mysql_fetch_array($res)) {
+    $res = mysqli_query($base, $sql);
+    while ($data=mysqli_fetch_array($res)) {
         echo '<div class="contenu"><div class="droite">'.$ind++.'. '.$data['last_name'].'  &nbsp; &nbsp;'.$data['first_name'].'  &nbsp; &nbsp;';
         if ($data['birthdate']!='0000-00-00') {
             echo date("d.m.Y", strtotime($data['birthdate']));
@@ -83,7 +83,7 @@ foreach ($tab_chal as $key => $passe) {
     echo '</div></div><br />';
 }
 echo '</page>';
-mysql_close ($base);
+mysqli_close ($base);
 
 
 
@@ -105,7 +105,7 @@ for ($i = 1; $i<=$number; $i++) {
 }
 $sql .= ' DESC';
 
-$req = mysql_query($sql) or die ("Requ�te invalide");
+$req = mysqli_query($base, $sql) or die ("Requ�te invalide");
 $ind=1;
 $tab[0]=0;
 
@@ -114,7 +114,7 @@ for ($i=0;$i<11;$i++) {
 }
 krso
 //affichage des donn�es
-while ($data = mysql_fetch_array($req)) {
+while ($data = mysqli_fetch_array($req)) {
     $inlist = false;
     foreach ($tab as $shooter) {
         if ($shooter == $data['id_shooter']) {
@@ -165,10 +165,10 @@ while ($data = mysql_fetch_array($req)) {
     }
 
 //si aucune passe
-if (mysql_num_rows($req) == 0) {
+if (mysqli_num_rows($req) == 0) {
     echo '<p>aucun tir enregistr�</p>';
 }
 echo '</fieldset></page>';
-mysql_close ($base);
+mysqli_close ($base);
 */
 ?>

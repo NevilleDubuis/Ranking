@@ -16,8 +16,8 @@
 		}
 	}
 	$sql .= ' )';
-	$res = mysql_query($sql);
-	mysql_close ($base);
+	$res = mysqli_query($base, $sql);
+	mysqli_close ($base);
 	$url='location: ../add_shoot.php?id='.$_POST['id'];
 	header ($url);
 ?>

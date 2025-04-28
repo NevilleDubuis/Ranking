@@ -1,9 +1,9 @@
 <?php
 
 		$sql = "SELECT * FROM events ORDER BY date_of DESC";
-		$req = mysql_query($sql) or die ("Requête invalide");
+		$req = mysqli_query($base, $sql) or die ("Requête invalide");
 		$i=0;
-		while ($data = mysql_fetch_array($req)) { 
+	    while ($data = mysqli_fetch_array($req)) { 
 			//pour l'affichage des sauts de ligne 
 			echo '<fieldset class="titre"><legend>'.$data['name'].'</legend>';
 			echo '<div class="contenu">Lieu : '.$data['place'].'  &nbsp; &nbsp;  date :'.$data['date_of'].' &nbsp; &nbsp; nombre_de coups : '.$data['number_shoot'];
@@ -14,7 +14,7 @@
 			$i++;
 		}
 		//si aucun article
-		if (mysql_num_rows($req) == 0) {
+		if (mysqli_num_rows($req) == 0) {
 			echo '<p>aucun tir prévu dans la base de données</p>';
 		}
 ?>

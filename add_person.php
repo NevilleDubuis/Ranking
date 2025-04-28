@@ -21,8 +21,8 @@
 		include "includes/conx_bd.php";
 		$birthdate = $year."-".$month."-".$day;
 		$sql="insert into person (first_name,last_name,birthdate) values ('".$first_name."', '".$last_name."','".$birthdate."')";
-		$res=mysql_query($sql);
-		mysql_close ($base);
+		$res=mysqli_query($base, $sql);
+		mysqli_close ($base);
 		header ('location: transit.html');
 		exit();
 	}

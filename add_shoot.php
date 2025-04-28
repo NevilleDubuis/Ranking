@@ -13,11 +13,11 @@
 	include 'includes/conx_bd.php';
 	$id = $_GET['id'];
 	$sql = 'SELECT name, number_shoot FROM events where id = '.$id;
-	$res = mysql_query($sql);
-	$data = mysql_fetch_array($res);
+	$res = mysqli_query($base, $sql);
+	$data = mysqli_fetch_array($res);
 	$name = str_replace(" ","_",$data['name']);
 	$number = $data['number_shoot'];
-	mysql_close ($base);
+	mysqli_close ($base);
 ?>
 
 <fieldset>
@@ -34,8 +34,8 @@
                     //cr�ation de la liste avec les entr�e de la base de donn�es
                     include 'includes/conx_bd.php';
                     $sql = 'SELECT * FROM person ORDER BY last_name';
-                    $res = mysql_query($sql);
-                    while ($data = mysql_fetch_array($res)) {
+                    $res = mysqli_query($base, $sql);
+                    while ($data = mysqli_fetch_array($res)) {
                             if ($data['birthdate']!='0000-00-00') {
                                     $birthdate = date("d.m.Y", strtotime($data['birthdate']));
                             }
@@ -44,7 +44,7 @@
                             }
                             echo '<option value="'.$data['id'].'">'.$data['last_name'].' '.$data['first_name'].' '.$birthdate.'</option>';
                     }
-                    mysql_close ($base);
+                    mysqli_close ($base);
             ?>
         </select><br/><br/>
 
@@ -94,12 +94,12 @@
         }
         $sql .= ' DESC';
 
-        $req = mysql_query($sql) or die ("Requ�te invalide");
-        $i=0;
+        $req = mysqli_query($base, $sql) or die ("Requ�te invalide");
+        $ind=0;
 
         //affichage des donn�es
-        while ($data = mysql_fetch_array($req)) {
-            echo '<div class="contenu"><div class="droite">'.$ind.'. '.$data['last_name'].'  &nbsp; &nbsp;'.$data['first_name'].'  &nbsp; &nbsp;';
+        while ($data = mysqli_fetch_array($req)) {
+            echo '<div class="contenu"><div class="droite">'.++$ind.'. '.$data['last_name'].'  &nbsp; &nbsp;'.$data['first_name'].'  &nbsp; &nbsp;';
             if ($data['birthdate']!='0000-00-00') {
                     echo date("d.m.Y", strtotime($data['birthdate']));
             }
@@ -121,7 +121,7 @@
             echo '</div><br/>';
         }
         echo '</fieldset>';
-        mysql_close ($base);
+        mysqli_close ($base);
     ?>
 
 </body>

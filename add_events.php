@@ -20,7 +20,7 @@
 		$date = $year."-".$month."-".$day;
 		
 		$sql="insert into events (name,number_shoot,place,date_of) values ('".$name."','".$number."','".$place."','".$date."')";
-		$res=mysql_query($sql);
+		$res=mysqli_query($base, $sql);
 		$name = str_replace(" ","_",$name);
 		$sql="CREATE TABLE ".$name." (	
 			id INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
@@ -32,8 +32,8 @@
 			}
 		}
 		$sql .= ')';
-		$res=mysql_query($sql);
-		mysql_close ($base);
+		$res=mysqli_query($base, $sql);
+		mysqli_close($base);
 		
 		header ('location: transit.html');
 		exit();
@@ -54,11 +54,10 @@
 	<label for="number" class="normal">Nombre de coups :</label>
 	<select name="number" id="number">
 			<?php
-				//cr�ation de la liste avec les entr�e de la base de donn�es
+				//création de la liste avec les entr�e de la base de donn�es
 				for ($i=1;$i<21;$i++) {
 					echo '<option value="'.$i.'">'.$i.'</option>';
 				}
-				mysql_close($base);
 			?>
 	</select><br/><br/>
 

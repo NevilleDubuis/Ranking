@@ -1,6 +1,6 @@
 <?php
 
-$base = mysql_connect ('localhost', 'tir', '1q2w3e'); 
-mysql_select_db('tir')or die("erreur de connexion a la base de donnees");
+$base = mysqli_connect('t36fj.myd.infomaniak.com', 't36fj_ranking', 'n1-.Ym6c-12EKK'); 
+mysqli_select_db($base, 't36fj_ranking') or die("erreur de connexion a la base de donnees");
 
 ?>
